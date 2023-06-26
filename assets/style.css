@@ -1,0 +1,84 @@
+
+body{
+  margin: 0;
+  font-family: monospace;
+}
+
+.game-title{
+  text-align: center;
+  font-size: x-large;
+}
+
+.game-byline{
+  text-align: center;
+  font-size: large;
+}
+.description{
+  text-align: center; 
+  line-height: 150%;
+  font-size: larger;
+}
+
+.page{
+  font-size: x-large;
+  margin: 5%;
+}
+
+.grid{
+  margin: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid div{
+  font-size: xx-large;
+  text-align: center;
+  line-height: 200%;
+}
+
+.gamelink{
+  font-size: x-large;
+  font-weight: bold;
+  color: #3606e4;
+  text-decoration: none;
+}
+
+.gameimg{
+  border: 2px solid black;
+}
+
+.inline{
+  display: inline-block;
+}
+
+.link{
+  font-weight: bold;
+  color: #3606e4;
+  text-decoration: none;
+}
+
+.topnav{
+  font-family: monospace;
+  margin: 0px;
+  overflow: hidden;
+  background-color: #474747;
+}
+  
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+  
+.topnav a:hover {
+  background-color: #9c9c9c;
+  color: black;
+}
+  
+.topnav a.active {
+  background-color: #09c76e;
+  color: white;
+}
