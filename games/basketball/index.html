@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Really Bad Basketball</title>
+        <link rel="stylesheet" type="text/css" href="../../assets/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="../../index.html">Home</a>
+            <a href="../../games.html">Games</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../about.html">About</a>
+        </div>
+        <div class="game-title"><h1>Really Bad Basketball</h1></div>
+        <div class="game-byline"><h2>By Cole Bechtel</h2></div>
+        <div id="canvas" style="text-align: center;"></div>
+        <script src="game.js"></script>
+        <p></p>
+        <div style="text-align: center;">
+            <label for="colorpicker">Background Color:</label>
+            <input type="color" id="bgPicker" value="#bfbfbf">
+            <label for="colorpicker">Ball Color:</label>
+            <input type="color" id="ballPicker" value="#000000">
+            <br>
+            <br>
+        </div>
+        
+        <div class="description">
+            <h2>Controls:</h2>
+            <p>
+                Move the mouse to change where the ball will be shot from <br>
+                up-arrow: increases force <br>
+                down-arrow: decreases force <br>
+                left-arrow: rotates shooting angle counter-clockwise <br>
+                right-arrow: rotates shooting angle clockwise <br>
+                s: shoots ball <br>
+                c: clears all balls
+            </p>
+        </div>
+    </body>
+</html>
