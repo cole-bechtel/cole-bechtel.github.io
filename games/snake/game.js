@@ -55,7 +55,7 @@ function draw() {
       if(snake.length === numTiles * numTiles) youWin = true
       do {
         apple = [Math.floor(random(0, numTiles)), Math.floor(random(0, numTiles))]
-      } while(inSnake([apple[0], apple[1]]) && (apple[0] !== head[0] && apple[1] !== head[1]))
+      } while(inSnake([apple[0], apple[1]]) || (apple[0] !== head[0] && apple[1] !== head[1]))
     }
     else snake.pop()
     if(inSnake([next[0], next[1]]) || next[0] < 0 || next[0] > numTiles - 1 || next[1] < 0 || next[1] > numTiles - 1 || snake.length + 1 === numTiles ** 2){
