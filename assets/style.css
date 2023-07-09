@@ -4,15 +4,11 @@ body{
   font-family: monospace;
 }
 
-.game-title{
+.gametitle{
   text-align: center;
-  font-size: x-large;
+  font-size: 12px;
 }
 
-.game-byline{
-  text-align: center;
-  font-size: large;
-}
 .description{
   text-align: center; 
   line-height: 150%;
