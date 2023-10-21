@@ -1,4 +1,4 @@
-const socket = new WebSocket('wss://colebechtel-chatrooms-app.onrender.com');
+const socket = new WebSocket('wss://chat-rooms.onrender.com');
 
 let room = 0;
 let myName = '';
