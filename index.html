@@ -3,6 +3,7 @@
     <head>
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="assets/style.css">
+        <script src="assets/jquery.mim.js"></script>
     </head>
     <body>
         <div class="topnav">
@@ -16,8 +17,9 @@
             <p>
                 Hello and welcome to my website! Please enjoy the games that
                 some of my friends and I have created. If you wish to learn more about me, read on.
-                Currently, I am a <label for="year">f</label> grade student at O'Rourke
-                Middle School in upstate New York. My favorite classes
+                Currently, I am in <label for="year"></label>th grade at 
+                <label for="school"></label> in upstate 
+                New York. My favorite classes
                 are math and band (I play the saxophone). When I was in
                 3rd grade, I fell in love with computer science and 
                 game development. I was taught JavaScript
@@ -39,6 +41,29 @@
             <div class="inline">
                 <img src = "images/cole.jpg" style="border-radius: 7%" width="232" height="308.8" alt="Epic photo of me">
             </div>
+            <script>
+                function calculateGrade(graduatingYear, currentYear) {
+                    let currentGrade = 13 - (graduatingYear - currentYear);
+                    
+                    if (currentGrade < 2 || currentGrade > 12) {
+                        return undefined;
+                    }
+                    else {
+                        return [currentGrade, currentGrade > 8];
+                    }
+                }
+                let date = new Date();
+                let graduatingYear = 2028; 
+                let currentYear = date.getFullYear();
+                let yourGrade = calculateGrade(graduatingYear, currentYear);
+                $('label[for=year]').text(yourGrade[0]);
+                if(yourGrade[1]){
+                    $('label[for=school]').text("BHBL High School");
+                }
+                else{
+                    $('label[for=school]').text("O'Rourke Middle School");
+                }
+            </script>
         </div>
     </body>
 </html>
