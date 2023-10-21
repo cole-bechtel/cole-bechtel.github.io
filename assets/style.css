@@ -24,25 +24,7 @@ body{
   margin: 5%;
   column-gap: 20px;
   display: grid;
-  @media screen and (max-width: 1400px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  @media screen and (max-width: 1170px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  @media screen and (max-width: 930px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  @media screen and (max-width: 730px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  @media screen and (max-width: 460px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 
