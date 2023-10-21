@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Online Chess</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="../../index.html">Home</a>
+            <a href="../../games.html">Games</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../about.html">About</a>
+        </div>
+        <div id="main-screen" class="screen">
+            <h1 class="title">Online Chess</h1>
+            <h3 class="sub">By Cole Bechtel</h3>
+            <button class="button big-button" onclick="changeScreen('join-private-screen')">Join game with code</button>
+            <br>
+            <button class="button big-button" onclick="changeScreen('join-public-screen')">Join public game</button>
+            <br>
+            <button class="button big-button" onclick="changeScreen('create-screen')">Create game</button>
+        </div>
+
+        <div id="join-private-screen" class="hide screen">
+             <h1 class="title">Enter code:</h1>
+             <input type="text" placeholder="Enter game code" id="enter-code" class="input-box" maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+             <button id="private-join-button" class="button" onclick="requestJoin()">Join</button>
+        </div>
+
+        <div id="join-public-screen" class="hide screen">
+            <h1 class="title">Select game: </h1>
+        </div>
+
+        <div id="create-screen" class="hide screen">
+            <h1 class="title">Create Game</h1>
+            <button class="button big-button" onclick="changeScreen('private-screen')">Private</button>
+            <br>
+            <button class="button big-button" onclick="changeScreen('create-public-screen')">Public</button>
+        </div>
+
+        <div id="private-screen" class="hide screen">
+            <h1 class="title">Private Game</h1>
+            <h3 id="private-code" class="sub">Code: </h3>
+            <button id="copy-button" class="button" onclick="copyCode()">Copy code</button>
+            <p id="copied-message">Code copied!</p>
+        </div>
+
+        <div id="public-waiting-screen" class="hide screen">
+            <h1 class="title">Waiting...</h1>
+        </div>
+
+        <div id="create-public-screen" class="hide screen">
+            <h1 class="title">Enter name:</h1>
+            <input type="text" placeholder="Enter name" id="enter-name" class="input-box" maxlength="20">
+            <button id="create-public-button" class="button" onclick="createPublic()">Create</button>
+        </div>
+
+        <div id="play-screen" class="hide screen">
+            <h1 class="title">Online Chess</h1>
+            <div id="board"></div>
+            <br>
+            <br>
+            <div id="home-button-container">
+                <button id="home-button" class="button big-button" onclick="changeScreen('main-screen', 'play-screen')">Home</button>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"></script>
+        <script src="client.js"></script>
+    </body>
+</html>
