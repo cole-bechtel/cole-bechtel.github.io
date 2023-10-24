@@ -1,4 +1,5 @@
-const socket = new WebSocket('wss://online-chess-yp5s.onrender.com');
+//const socket = new WebSocket('wss://online-chess-yp5s.onrender.com');
+const socket = new WebSocket('ws://localhost:8080');
 
 let currentScreen = 'main-screen';
 
@@ -9,7 +10,7 @@ let requestedCode = ''
 let possibleReasons = {
   'left': 'by player\ndisconnection',
   'mate': 'by checkmate',
-  'resign': 'by resignation'
+  'resignation': 'by resignation'
 }
 
 let publicGames = [];
@@ -111,6 +112,23 @@ function changeScreen(screen, from=null) {
     }
 }
 
+function resign(){
+  let sure = confirm('Are you sure you want to resign?');
+  if(sure){
+    let message = {
+      type: 'resignation',
+      code: gameCode 
+    }
+    socket.send(JSON.stringify(message));
+    gameStatus = 'lost';
+    reason = 'resignation';
+    let resign = document.getElementById('resign-button');
+    resign.style.display = 'none';
+    let home = document.getElementById('home-button');
+    home.style.display = 'inline';
+  }
+}
+
 window.onbeforeunload = function(event){
   let message = {
     type: 'byebye'
@@ -196,6 +214,14 @@ socket.addEventListener('message', message => {
             gameCode = requestedCode;
         }
         myColor = content.color;
+        if(myColor === 'white'){
+          let move = document.getElementById('move-indicator');
+          move.innerHTML = 'Your move';
+        }
+        else{
+          let move = document.getElementById('move-indicator');
+          move.innerHTML = "Opponent's move";
+        }
         changeScreen('play-screen');
     }
 
@@ -285,6 +311,8 @@ socket.addEventListener('message', message => {
           socket.send(JSON.stringify(send));
           gameStatus = 'lost';
           reason = 'mate';
+          let resign = document.getElementById('resign-button');
+          resign.style.display = 'none';
           let home = document.getElementById('home-button');
           home.style.display = 'inline';
         }
@@ -295,18 +323,34 @@ socket.addEventListener('message', message => {
         else{
           whiteToMove = true;
         }
-        
+        let move = document.getElementById('move-indicator');
+        move.innerHTML = 'Your move';
     }
 
     else if(content.type === 'checkmate'){
       gameStatus = 'won';
       reason = 'mate'
+      let resign = document.getElementById('resign-button');
+      resign.style.display = 'none';
       let home = document.getElementById('home-button');
       home.style.display = 'inline';
     }
-    else if (content.type === 'opponent-left' && gameStatus === 'playing' ){
+
+    else if (content.type === 'opponent-left' && gameStatus === 'playing'){
       gameStatus = 'won';
       reason = 'left';
+      let resign = document.getElementById('resign-button');
+      resign.style.display = 'none';
+      let home = document.getElementById('home-button');
+      home.style.display = 'inline';
+    }
+
+    else if(content.type === 'opponent-resigned' && gameStatus === 'playing'){
+      gameStatus = 'won';
+      console.log('YAYAYA!')
+      reason = 'resignation';
+      let resign = document.getElementById('resign-button');
+      resign.style.display = 'none';
       let home = document.getElementById('home-button');
       home.style.display = 'inline';
     }
@@ -908,6 +952,8 @@ function sendMoves(message, captured, ignore=false){
     }
     if(!ignore){
       socket.send(JSON.stringify(message));
+      let move = document.getElementById('move-indicator');
+      move.innerHTML = "Opponent's move";
       enPassant = null;
     }
     pieceSelected = false;

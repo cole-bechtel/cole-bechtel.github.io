@@ -24,7 +24,6 @@ body{
   margin: 5%;
   column-gap: 20px;
   display: grid;
-  
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
@@ -58,10 +57,12 @@ body{
 }
 
 .topnav{
+  top: 0;
   font-family: monospace;
   margin: 0px;
   overflow: hidden;
   background-color: #474747;
+  width: 100%;
 }
   
 .topnav a {
