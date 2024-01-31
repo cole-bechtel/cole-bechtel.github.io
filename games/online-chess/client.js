@@ -1,5 +1,5 @@
-const socket = new WebSocket('wss://online-chess-yp5s.onrender.com');
-//const socket = new WebSocket('ws://localhost:8080');
+//const socket = new WebSocket('wss://online-chess-yp5s.onrender.com');
+const socket = new WebSocket('ws://localhost:8080');
 
 let currentScreen = 'main-screen';
 
@@ -10,8 +10,10 @@ let requestedCode = ''
 let possibleReasons = {
   'left': 'by player\ndisconnection',
   'mate': 'by checkmate',
-  'resignation': 'by resignation'
-}
+  'resignation': 'by resignation',
+  'stalemate': 'by stalemate',
+  'im': 'by\ninsufficient\nmaterial'
+};
 
 let publicGames = [];
 
@@ -23,7 +25,7 @@ let privateCodeElement = document.getElementById('private-code');
 
 let myColor = 'white';
 
-function displayCode(){
+function displayCode(){ 
     privateCodeElement.innerHTML = 'Code: ' + gameCode;
 }
 
@@ -223,6 +225,8 @@ socket.addEventListener('message', message => {
           move.innerHTML = "Opponent's move";
         }
         changeScreen('play-screen');
+        let resign = document.getElementById('resign-button');
+        resign.style.display = 'inline';
     }
 
 	else if(content.type === 'public-games'){
@@ -294,27 +298,81 @@ socket.addEventListener('message', message => {
             }
           }
         }
-
+        let piecesOnBoard = {
+          "R": 0,
+          "N": 0,
+          "B": 0,
+          "Q": 0,
+          "K": 0,
+          "P": 0,
+          "r": 0,
+          "n": 0,
+          "b": 0,
+          "q": 0,
+          "k": 0,
+          "p": 0
+        }
         let all = true
         for(let piece of allPieces){
+          piecesOnBoard[piece.type]++;
           piece.possible()
           if(capital(piece.type) === (myColor === 'white') && piece.pM.length !== 0){
             all = false
-            break
           }
         }
+        console.log(piecesOnBoard)
         if(all){
-          let send = {
-            type: 'checkmate',
-            code: gameCode
-          }; 
-          socket.send(JSON.stringify(send));
-          gameStatus = 'lost';
-          reason = 'mate';
+          if(content.inCheck){
+            let send = {
+              type: 'checkmate',
+              code: gameCode
+            }; 
+            socket.send(JSON.stringify(send));
+            gameStatus = 'lost';
+            reason = 'mate';
+          }
+          else{
+            let send = {
+              type: 'stalemate',
+              code: gameCode
+            }; 
+            socket.send(JSON.stringify(send));
+            gameStatus = 'draw';
+            reason = 'stalemate';
+          }
+          
           let resign = document.getElementById('resign-button');
           resign.style.display = 'none';
           let home = document.getElementById('home-button');
           home.style.display = 'inline';
+        }
+        else{
+          if (
+            piecesOnBoard["K"] === 1 &&
+            piecesOnBoard["k"] === 1 &&
+            piecesOnBoard["Q"] === 0 &&
+            piecesOnBoard["q"] === 0 &&
+            piecesOnBoard["R"] === 0 &&
+            piecesOnBoard["r"] === 0 &&
+            piecesOnBoard["B"] <= 1 &&
+            piecesOnBoard["b"] <= 1 &&
+            piecesOnBoard["N"] <= 1 &&
+            piecesOnBoard["n"] <= 1 &&
+            piecesOnBoard["P"] === 0 &&
+            piecesOnBoard["p"] === 0
+          ) {
+            let send = {
+              type: 'stalemate',
+              code: gameCode
+            }; 
+            socket.send(JSON.stringify(send));
+            gameStatus = 'draw';
+            reason = 'im';
+            let resign = document.getElementById('resign-button');
+            resign.style.display = 'none';
+            let home = document.getElementById('home-button');
+            home.style.display = 'inline';
+          }
         }
 
         if(myColor === 'black'){
@@ -330,6 +388,15 @@ socket.addEventListener('message', message => {
     else if(content.type === 'checkmate'){
       gameStatus = 'won';
       reason = 'mate'
+      let resign = document.getElementById('resign-button');
+      resign.style.display = 'none';
+      let home = document.getElementById('home-button');
+      home.style.display = 'inline';
+    }
+
+    else if(content.type === 'stalemate'){
+      gameStatus = 'draw';
+      reason = 'stalemate'
       let resign = document.getElementById('resign-button');
       resign.style.display = 'none';
       let home = document.getElementById('home-button');
@@ -840,7 +907,7 @@ function draw() {
       rect(75, 75, 250, 250, 10);
       fill(0);
       textSize(50);
-      if(gameStatus === 'lost' || gameStatus === 'won'){
+      if(['lost', 'draw', 'won'].indexOf(gameStatus) !== -1){
         newX = mouseX;
         newY = mouseY;
         if(myColor === 'black'){
@@ -850,7 +917,8 @@ function draw() {
         if(myColor === 'black'){
           translate(200, 200);
           rotate(180);
-          text(`You ${gameStatus}`, 0, -75);
+          if(gameStatus !== 'draw') text(`You ${gameStatus}`, 0, -75);
+          else text(`Draw`, 0, -75);
           textSize(30);
           textAlign(CENTER, TOP);
           text(possibleReasons[reason], 0, -40);
@@ -881,7 +949,8 @@ function draw() {
           text('View board', 0, 76)
         }
         else{
-          text(`You ${gameStatus}`, 200, 125);
+          if(gameStatus !== 'draw') text(`You ${gameStatus}`, 200, 125);
+          else text(`Draw`, 200, 125);
           textSize(30);
           textAlign(CENTER, TOP);
           text(possibleReasons[reason], 200, 160);
@@ -950,7 +1019,30 @@ function sendMoves(message, captured, ignore=false){
     if(enPassant !== null){
       message.enPassant = enPassant;
     }
+    for(let piece of allPieces){
+      if(capital(piece.type) !== (myColor === 'white')){
+        continue;
+      }
+    }
     if(!ignore){
+      let opponentKing = null;
+      for(let piece of allPieces){
+        if((capital(piece.type) !== (myColor === 'white')) && ['K', 'k'].indexOf(piece.type) !== -1){
+          opponentKing = piece;
+        }
+      }
+      if(opponentKing !== null){
+        for(let piece of allPieces){
+          piece.possible()
+          if(capital(piece.type) === (myColor === 'white')){
+            for(let move of piece.pM){
+              if(move[0] === opponentKing.x && move[1] === opponentKing.y){
+                message.inCheck = true;
+              }
+            }
+          }
+        }
+      }
       socket.send(JSON.stringify(message));
       let move = document.getElementById('move-indicator');
       move.innerHTML = "Opponent's move";
@@ -967,7 +1059,8 @@ function mouseClicked() {
       code: gameCode,
       pieces: [],
       capturedPiece: captured,
-      enPassant: null
+      enPassant: null,
+      inCheck: false
     };
     newX = mouseX;
     newY = mouseY;
