@@ -2,6 +2,9 @@
 <html>
     <head>
         <title>Home</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
         <link rel="stylesheet" type="text/css" href="assets/style.css">
         <script src="assets/jquery.mim.js"></script>
     </head>
@@ -37,10 +40,13 @@
                 and other programs I have made. Farewell!
             </p>
             <div class="inline">
-                <a href="https://github.com/cole-bechtel" target="_blank"><img src="assets/github.png" alt="Github link" width="150" height="150"></a>
+                <a href="https://github.com/cole-bechtel" target="_blank"><img src="images/github.png" alt="Github link" width="150" height="150"></a>
                 <img src = "images/cole.jpg" style="border-radius: 7%" width="116" height="154.4" alt="Epic photo of me">
             </div>
             <script>
+                $('label[for=year]').text(8);
+                $('label[for=school]').text("O'Rourke Middle School");
+                /*
                 function calculateGrade(graduatingYear, currentYear) {
                     let currentGrade = 13 - (graduatingYear - currentYear);
                     
@@ -62,6 +68,7 @@
                 else{
                     $('label[for=school]').text("O'Rourke Middle School");
                 }
+                */
             </script>
         </div>
     </body>

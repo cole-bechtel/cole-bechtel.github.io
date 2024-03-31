@@ -1,3 +1,6 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+let isFirstRightClick = true;
 let gravity = 0.3
 let force = 0
 let allBalls = []
@@ -6,9 +9,6 @@ let ableToShoot = false;
 let shootingAngle = 90
 let predictionBall = null;
 let totalPoints = 0
-
-//Images
-let netImg;
 
 class Ball{
   constructor(x, y, r, xvel, yvel, invisible){
@@ -91,9 +91,7 @@ class Hoop{
 //let test = new Hoop(200, 200, 30, "right")
 function setup() {
   createCanvas(600, 500).parent("canvas");
-  textAlign(CENTER, CENTER)
-  //Images
-  netImg = loadImage("images/net.png")
+  textAlign(CENTER, CENTER);
 }
 
 function draw() {
@@ -123,7 +121,7 @@ function draw() {
     xvel: BallFromAngle(shootingAngle, force)[0],
     yvel: BallFromAngle(shootingAngle, force)[1],
   }
-  for(let i = 0; i < 20; i++){
+  for(let i = 0; i < 30; i++){
     pred.x += pred.xvel
     pred.yvel += gravity
     pred.y += pred.yvel
@@ -142,7 +140,11 @@ function draw() {
     points.push([pred.x, pred.y])
   }
   for(let p of points){
-    fill(0)
+    let bg = hexToRgb(document.getElementById("bgPicker").value);
+    //fill((bg[0] + 128) % 256, (bg[1] + 128) % 256, (bg[2] + 128) % 256);
+    let average = (bg[0] + bg[1] + bg[2]) / 3;
+    if(average > 127) fill(0);
+    else fill(255);
     ellipse(p[0], p[1], 3, 3)
   }
   fill(document.getElementById("ballPicker").value)
@@ -166,11 +168,24 @@ function draw() {
   }
 }
 
+function mousePressed(){
+  if(mouseButton === RIGHT && isFirstRightClick){
+    new Ball(mouseX, mouseY, 10, BallFromAngle(shootingAngle, force)[0], BallFromAngle(shootingAngle, force)[1], false)
+    isFirstRightClick = false;
+  }
+  return false;
+}
+
+function mouseReleased(){
+  isFirstRightClick = true;
+}
+
 function keyPressed(){
   if(keyCode === 32){
     new Ball(mouseX, mouseY, 10, BallFromAngle(shootingAngle, force)[0], BallFromAngle(shootingAngle, force)[1], false)
   }
   if(key === "c") allBalls = []
+  if(key === "v") saveCanvas();
 }
 
 document.addEventListener("keydown", (e) => {
@@ -182,4 +197,16 @@ document.addEventListener("keydown", (e) => {
 
 function BallFromAngle(angle, f){
   return [Math.cos(angle) * f, (Math.sin(angle) * f) * -1]
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+
+  var bigint = parseInt(hex, 16);
+
+  var r = (bigint >> 16) & 255;
+  var g = (bigint >> 8) & 255;
+  var b = bigint & 255;
+
+  return [r, g, b];
 }
