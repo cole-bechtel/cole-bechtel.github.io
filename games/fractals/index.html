@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fractal Maker</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+        <link rel="stylesheet" type="text/css" href="../../assets/style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="../../index.html">Home</a>
+            <a href="../../games.html">Games</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../about.html">About</a>
+        </div>
+        <div style="text-align: center;">
+            <h1>Fractal Maker</h1>
+            <h2>By Cole Bechtel</h2>
+        </div>
+        <div id="canvas" style="text-align: center;"></div>
+        <script src="game.js"></script>
+        <div id="inputs">
+            <label for="points" class="label">Points:</label>
+            <input type="number" id="points" class="box" name="points" min="3" max="30" step="1" oninput="limitPoints(this)">
+            <label for="speed" class="label">Speed:</label>
+            <input type="number" id="speed" class="box" name="speed" min="0" max="100" step="1" oninput="limitPoints(this)">
+            <label for="Ratio" class="label">Ratio:</label>
+            <input type="text" id="ratio" class="box" name="ratio" min="0.0" max="1.0" step="any" value="0.5" oninput="limitPoints(this)">
+            <button id="save" onclick="saveResult()">Save</button>
+        </div>
+        <div class="description">
+            <h2>Explanation:</h2>
+            <p>
+                <b>Points</b> is the number of anchor points that will "attract" the points that are drawn.<br>
+                <b>Speed</b> is the number of points that are calculated and drawn each time the program loops.<br>
+                <b>Ratio</b> is the percentage along the line between the previous point and the chosen anchor point that the new point will be drawn.
+                The default ratio is 0.5, which will draw the new point at the midpoint between the previous point and the anchor point
+            </p>
+            <h2>Things to try:</h2>
+            <p>
+                <b>Sierpinski triangle:</b> 3 points with a ratio of 0.5<br>
+                <b>Shapes:</b> <i>n</i> points with a ratio of 0.789 will result in a shape with <i>n</i> sides that is itself made of the same shape, and so on.<br>
+                <b>Pentagon:</b> 5 points with a ratio of 0.5 will result in a pentagon that is riddled with holes.<br><br>
+                If you discover any other interesting results, please email me at <b>cole.bechtel2010@gmail.com</b>
+            </p>
+        </div>
+    </body>
+</html>
