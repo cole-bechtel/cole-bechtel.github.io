@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://ec2-3-139-76-67.us-east-2.compute.amazonaws.com:8080');
+const socket = new WebSocket('wss://chess.colebechtel.com');
 
 let currentScreen = 'main-screen';
 
