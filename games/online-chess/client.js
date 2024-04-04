@@ -1,5 +1,4 @@
-//const socket = new WebSocket('wss://online-chess-yp5s.onrender.com');
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://ec2-3-139-76-67.us-east-2.compute.amazonaws.com:8080');
 
 let currentScreen = 'main-screen';
 
