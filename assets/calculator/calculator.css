@@ -1,0 +1,46 @@
+table{
+  font-size: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+  
+th, td{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 2px solid black;
+}
+
+th{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+td{
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+}
+
+.calculator-button{
+  padding: 0%;
+  height: 0px;
+}
+
+.calculator-button button{
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  border-style: none;
+  border-color: block;
+  font-family: monospace;
+  font-size: 20px;
+  color: black;
+  background-color: white;
+}
+
+.calculator-button button:hover{
+  cursor: pointer;
+  background-color: rgb(175, 175, 175);
+  color: white;
+  background-color: black;
+}

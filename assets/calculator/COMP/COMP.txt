@@ -1,0 +1,7 @@
+Disp "P=PRINCIPAL R=RATE T=TIME"
+Disp "RATE IS IN PERCENT FORM"
+Prompt P
+Prompt R
+Prompt T
+Disp toString(P)+"("+toString(1+(R/100))+")"+"^"+toString(T)
+Disp P(1+(R/100))^T

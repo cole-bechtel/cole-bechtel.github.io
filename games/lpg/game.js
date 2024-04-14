@@ -23,32 +23,44 @@ let car;
 function setup() {
     createCanvas(windowWidth, 400).parent('canvas');
     imageMode(CORNERS);    
-    car = new Car(0, 'abc', 5);
+    car = new Car(0, 'abc', 5, width, height);
 }
 
 let cars = []
 
 class Car{
-    constructor(lane, plate, speed){
+    constructor(lane, plate, speed, w, h){
         this.lane = lane; //0 = left, 1 = center, 2 = right
         this.plate = plate;
         this.speed = speed;
+        this.w = w;
+        this.h = h
         this.number = generateRandomFourDigitNumber();
+
+        //Slope
+        let endX = this.w / 2;
+        let endY = 0;
+        let startY = this.h;
+        let startX = (this.w / 6) * (this.lane * 2 + 1)
+        this.slope = (endY - startY) / (endX - startX);
+        if(this.lane === 1) this.slope = 0;
+        console.log(this.slope)
         //X and Y values are that of the center of the car
         this.pos = {
-            x: undefined,
-            y: height,
+            x: 50 / this.slope,
+            y: h + 50,
             w: 170
         };
         if(this.lane === 0){
-            this.pos.x = width / 6;
+            this.pos.x += width / 6;
         }
         else if(this.lane === 1){
-            this.pos.x = width / 2;
+            this.pos.x += width / 2;
         }
         else{
-            this.pos.x = width / 6 * 5;
+            this.pos.x += width / 6 * 5;
         }
+
         cars.push(this);
     }
     display(){
@@ -59,6 +71,13 @@ class Car{
             this.pos.x + this.pos.w / 2, //X of bottom right corner
             this.pos.y + this.pos.w / 2  //Y of bottom right corner
         );
+
+        /*--------------Moving--------------*/
+        if(this.lane === 0){
+            this.pos.x += 1;
+            this.pos.y = 600 + this.pos.x * this.slope;
+            this.pos.w += this.slope / 3;
+        }
     }
 } 
 
@@ -98,8 +117,4 @@ function drawRoadLine(startX, startY, endX, endY, thickness, length, iterations)
 function generateRandomFourDigitNumber(){
     const randomNumber = Math.floor(Math.random() * 9000) + 1000;
     return randomNumber;
-}
-
-function windowResized(){
-    resizeCanvas(windowWidth, 400);
 }

@@ -1,4 +1,4 @@
-const socket = new WebSocket('wss://chatrooms.colebechtel.com');
+const socket = new WebSocket('wss://chatrooms.colebechtel.com ');
 
 let room = 0;
 let myName = '';

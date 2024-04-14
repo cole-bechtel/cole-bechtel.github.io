@@ -1,7 +1,10 @@
-
 body{
   margin: 0;
   font-family: monospace;
+}
+
+.heading{
+  font-size: 50px
 }
 
 .gametitle{
@@ -23,7 +26,6 @@ body{
 }
 
 .grid {
-  margin: 5%;
   column-gap: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
