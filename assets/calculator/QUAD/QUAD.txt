@@ -1,0 +1,8 @@
+Prompt A
+Prompt B
+Prompt C
+Disp ""
+(­B+√(B²-4AC))/(2A)→X
+Disp X
+(­B-√(B²-4AC))/(2A)→X
+Disp X

@@ -1,5 +1,5 @@
 Disp "P=PRINCIPAL R=RATE T=TIME"
-Disp "RATE IS IN PERCENT FORM"
+Disp "RATE IS IN PERCENT FORM,"
 Prompt P
 Prompt R
 Prompt T

@@ -1,0 +1,22 @@
+Disp "ENTER 3 CONSECUTIVE TERMS"
+Prompt A
+Prompt B
+Prompt C
+Disp ""
+B/A→X
+C/B→Y
+If X=Y
+Then
+Disp "GEOMETRIC"
+Disp "R="+toString(X)
+Stop
+End
+B-A→X
+C-B→Y
+If X=Y
+Then
+Disp "ARITHMETIC"
+Disp "D="+toString(X)
+Else
+Disp "NEITHER"
+End
