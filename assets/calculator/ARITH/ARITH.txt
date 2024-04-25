@@ -1,0 +1,21 @@
+Disp "A:1ST TERM"
+Disp "D:COMMON DIFERENCE"
+Disp ""
+Prompt A
+Prompt D
+Disp ""
+D*­1+A→C
+If C>0
+Disp "A(N)="+toString(D)+"N"+"+"+toString(C)
+If C<0
+Disp "A(N)="+toString(D)+"N"+toString(C)
+If C=0
+Disp "A(N)="+toString(D)+"N"
+Disp ""
+Disp "A(1)="+toString(A)
+If D>0
+Disp "A(N)=A(N-1)"+"+"+toString(D)
+If D<0
+Disp "A(N)=A(N-1)"+"-"+toString(D)
+If D=0
+Disp "A(N)=A(N-1)"

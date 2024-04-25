@@ -1,0 +1,10 @@
+Disp "A:1ST TERM"
+Disp "R:COMMON RATIO"
+Disp ""
+Prompt A
+Prompt R
+Disp ""
+Disp "A(N)="+toString(A)+"("+toString(R)+")^(n-1)"
+Disp ""
+Disp "A(1)="+toString(A)
+Disp "A(N)="+toString(R)+"(A(N-1))"
