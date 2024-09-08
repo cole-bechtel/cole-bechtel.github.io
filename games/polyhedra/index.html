@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Polyhedral Chaos</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+        <link rel="stylesheet" type="text/css" href="../../assets/style.css">
+        <link rel="stylesheet" type="text/css" href="polyhedra.css">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="../../index.html">Home</a>
+            <a href="../../games.html">Games</a>
+            <a href="../../contact.html">Contact</a>
+        </div>
+        <div style="text-align: center;">
+            <h1>Polyhedral Chaos</h1>
+            <h2>By Cole Bechtel</h2>
+        </div>
+        <div id="canvas" style="text-align: center;"></div>
+        <script src="game.js"></script>
+        <div id="inputs">
+            <label for="shape" class="label">Shape:</label>
+            <select name="shape" id="shape" onchange="updatePoints(this.value)">
+                <option value="tetrahedron">Tetrahedron</option>
+                <option value="cubeVertices">Cube (8)</option>
+                <option value="cubeEdges">Cube (20)</option>
+                <option value="octahedron">Octahedron</option>
+                <option value="dodecahedron">Dodecahedron</option>
+                <option value="icosohedron">Icosohedron</option>
+            </select>
+            <label for="ratio" class="label">Ratio:</label>
+            <input type="number" id="ratio" class="box" name="ratio" min="0" max="1" step="0.1" value = "0.5">
+
+            <label for="points" class="label">Points:</label>
+            <input type="number" id="points" class="box" name="points" step="1" value = "1000">
+            <br>
+            <button id="updateButton" onclick="updatePoints(document.getElementById('shape').value)">Update</button>
+            <button id="screenshotButton" onclick="takeScreenshot()">Screenshot</button>
+
+            <label for="showAttractors">Show attractor points</label>
+            <input type="checkbox" id="showAttractors" name="showAttractors">
+            
+        </div>
+    </body>
+</html>

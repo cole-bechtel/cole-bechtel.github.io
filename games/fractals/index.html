@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
         <link rel="stylesheet" type="text/css" href="../../assets/style.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="fractals.css">
         <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
     </head>
     <body>
@@ -14,7 +14,6 @@
             <a href="../../index.html">Home</a>
             <a href="../../games.html">Games</a>
             <a href="../../contact.html">Contact</a>
-            <a href="../../about.html">About</a>
         </div>
         <div style="text-align: center;">
             <h1>Fractal Maker</h1>
@@ -29,7 +28,7 @@
             <input type="number" id="speed" class="box" name="speed" min="0" max="100" step="1" oninput="limitPoints(this)">
             <label for="Ratio" class="label">Ratio:</label>
             <input type="text" id="ratio" class="box" name="ratio" min="0.0" max="1.0" step="any" value="0.5" oninput="limitPoints(this)">
-            <button id="save" onclick="saveResult()">Save</button>
+            <button id="save" onclick="saveResult()">Screenshot</button>
         </div>
         <div class="description">
             <h2>Explanation:</h2>
